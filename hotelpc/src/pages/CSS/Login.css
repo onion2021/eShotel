@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .background {
+
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+
+  .background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../../assets/login.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+  }
+
+  .login-box {
+    width: 40%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .login-form-wrapper {
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    text-align: center;
+  }
+  
+  .login-head {
+    height: 30%;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* .login-form-wrapper div{
+
+    height: 70%;
+    display: flex;          
+    align-items: center;   
+    justify-content: center;
+  }
+  .login-form-wrapper div Form.Item{
+    width: 80%;
+  } */
+  
+
+  .clear-img{
+width: 50%;
+height: 100%;
+padding: 30px 40px;
+
+box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-image: url('../../assets/loginclear.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+
+  .form-font{
+    font-size: larger;
+    font-weight: 600;
+  }
