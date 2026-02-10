@@ -33,8 +33,8 @@ body {
   }
 
   .login-box {
-    width: 40%;
-    height: 40%;
+    width: 45%;
+    height: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,6 +45,7 @@ body {
   
 
   .login-form-wrapper {
+    align-items: center;
     width: 50%;
     height: 100%;
     background: rgba(255, 255, 255, 0.95);
@@ -55,7 +56,8 @@ body {
   .login-head {
     height: 30%;
     margin: 0 0 20px 0;
-    font-size: 24px;
+    font-size: 1vw;
+    max-font-size: 32px;
     color: #333;
     font-weight: 600;
   }
@@ -92,5 +94,15 @@ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 
   .form-font{
     font-size: larger;
-    font-weight: 600;
+  }
+  .submit{
+    margin: 2px;
+    padding: 2px;
+  }
+  .submit Button{
+    margin: 5px;
+   
+  }
+  .hidden{
+    display: none;
   }

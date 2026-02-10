@@ -25,8 +25,10 @@ function AppRoutes() {
         <Routes>
           {/* 首页 */}
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Login />} >
+          <Route path="signup" element={<Signup />} />
+          </Route>
+
         </Routes>
       </Suspense>
     )
