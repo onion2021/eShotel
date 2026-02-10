@@ -44,7 +44,7 @@ function Login() {
           <Form
             name="basic"
             size="large"
-            style={{ maxWidth: 600, marginTop: '3vw' }}
+            style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

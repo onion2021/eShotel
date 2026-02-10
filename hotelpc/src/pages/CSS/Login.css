@@ -33,29 +33,34 @@ body {
   }
 
   .login-box {
-    width: 45%;
+    width: 40%;
     height: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 8px;
+
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
   }
   
 
   .login-form-wrapper {
-    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     width: 50%;
     height: 100%;
     background: rgba(255, 255, 255, 0.95);
-    padding: 30px 40px;
+ 
     text-align: center;
+    display: grid;
+    /* 垂直+水平居中 */
+    place-items: center;
   }
   
   .login-head {
     height: 30%;
-    margin: 0 0 20px 0;
+    
     font-size: 1vw;
     max-font-size: 32px;
     color: #333;
@@ -77,8 +82,9 @@ body {
   .clear-img{
 width: 50%;
 height: 100%;
-padding: 30px 40px;
 
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
 box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     top: 0;
     left: 0;
