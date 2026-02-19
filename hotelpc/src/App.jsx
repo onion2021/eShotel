@@ -1,9 +1,14 @@
 import AppRoutes from './router/index.jsx'
+import { HotelProvider } from './context/HotelContext'
+import { AuthProvider } from './context/AuthContext'
+
 function App() {
   return (
-    <>
-      <div><AppRoutes /></div>
-    </>
+    <AuthProvider>
+      <HotelProvider>
+        <div><AppRoutes /></div>
+      </HotelProvider>
+    </AuthProvider>
   )
 }
 

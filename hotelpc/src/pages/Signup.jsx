@@ -1,17 +1,23 @@
 // Signup.js 完整修改版
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Radio, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useOutletContext } from 'react-router-dom'; // 新增：引入上下文钩子
+import { useOutletContext } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const { Title, Text } = Typography;
 
 const Signup = () => {
-  // 从父组件获取回调函数
   const { goBackToLogin } = useOutletContext();
+  const { register } = useAuth();
 
   const onFinish = (values) => {
-    console.log('注册信息:', values);
-    // 调用注册接口，处理成功/失败
+    const result = register(values.username, values.password, values.role);
+    if (result.ok) {
+      message.success('注册成功，请登录');
+      goBackToLogin();
+    } else {
+      message.error(result.message || '注册失败');
+    }
   };
 
   return (
@@ -30,13 +36,22 @@ const Signup = () => {
         >
           <Form.Item
             name="username"
-            label="账号/手机号"
-            rules={[
-              { required: true, message: '请输入账号或手机号' },
-              { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确' }
-            ]}
+            label="账号"
+            rules={[{ required: true, message: '请输入账号' }]}
           >
-            <Input prefix={<UserOutlined />} placeholder="请输入手机号" />
+            <Input prefix={<UserOutlined />} placeholder="请输入账号" />
+          </Form.Item>
+
+          <Form.Item
+            name="role"
+            label="角色"
+            rules={[{ required: true, message: '请选择角色' }]}
+            initialValue="merchant"
+          >
+            <Radio.Group>
+              <Radio value="merchant">商户（可上传、编辑酒店信息）</Radio>
+              <Radio value="admin">管理员（可审核、发布酒店信息）</Radio>
+            </Radio.Group>
           </Form.Item>
 
           <Form.Item
@@ -44,7 +59,7 @@ const Signup = () => {
             label="密码"
             rules={[
               { required: true, message: '请输入密码' },
-              { min: 8, message: '密码长度不能少于8位' }
+              { min: 6, message: '密码长度不能少于6位' }
             ]}
           >
             <Input.Password prefix={<LockOutlined />} placeholder="8-20位，包含字母+数字" />

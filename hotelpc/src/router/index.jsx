@@ -3,6 +3,9 @@ import { lazy, Suspense } from 'react'
 const Home = lazy(() => import('../pages/Home.jsx'))
 const Login = lazy(() => import('../pages/Login.jsx'))
 const Signup = lazy(() => import('../pages/Signup.jsx'))
+const HotelInfo = lazy(() => import('../pages/HotelInfo.jsx'))
+const Admin = lazy(() => import('../pages/Admin.jsx'))
+const HotelRooms = lazy(() => import('../pages/HotelRooms.jsx'))
 
 function LoadingFallback() {
   return (
@@ -25,6 +28,10 @@ function AppRoutes() {
         <Routes>
           {/* 首页 */}
           <Route path="/home" element={<Home />} />
+          <Route path="/hotel-info" element={<HotelInfo />} />
+          <Route path="/hotel-info/:id" element={<HotelInfo />} />
+          <Route path="/hotel/:id/rooms" element={<HotelRooms />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<Login />} >
           <Route path="signup" element={<Signup />} />
           </Route>

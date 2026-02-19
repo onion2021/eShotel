@@ -1,0 +1,158 @@
+.home-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(160deg, #f6f8fb 0%, #eef1f6 100%);
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.home-title {
+  margin: 0;
+  font-weight: 600;
+  color: #1a1a2e;
+  letter-spacing: -0.02em;
+}
+
+.home-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-empty {
+  text-align: center;
+  padding: 48px 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.home-empty .ant-typography {
+  font-size: 15px;
+  color: #595959;
+}
+
+.home-list {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.home-list .ant-list-item {
+  padding: 0;
+  margin-bottom: 16px;
+  border: none;
+}
+
+.home-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.home-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.home-card .ant-card-head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 16px 20px;
+  min-height: auto;
+}
+
+.home-card .ant-card-head-title {
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.home-card .ant-card-body {
+  padding: 20px;
+}
+
+.home-card-name-en {
+  font-weight: 400;
+  color: #8c8c8c;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.home-status-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.06);
+}
+
+.home-reject-reason {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  font-size: 13px;
+  color: #cf1322;
+}
+
+.home-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px 24px;
+  margin-bottom: 12px;
+}
+
+.home-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.home-info-item .label {
+  color: #8c8c8c;
+  flex-shrink: 0;
+  min-width: 72px;
+}
+
+.home-info-item .value {
+  color: #262626;
+}
+
+.home-info-item .value.highlight {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.home-extra-block {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.06);
+  font-size: 13px;
+  color: #595959;
+  line-height: 1.6;
+}
+
+.home-extra-block .label {
+  color: #8c8c8c;
+  margin-right: 4px;
+}
+
+.home-edit-btn {
+  padding: 0 8px;
+  height: 32px;
+  font-size: 13px;
+}

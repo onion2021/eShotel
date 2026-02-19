@@ -1,15 +1,11 @@
 // Login.js 完整修改版
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Checkbox, Form, Input, Typography, message } from 'antd';
 import './CSS/Login.css';
-import Img from '../assets/loginclear.png';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { useState, useMemo } from 'react'; // 新增 useMemo
-const { Title, Text } = Typography;
+import { useState, useMemo } from 'react';
+import { useAuth } from '../context/AuthContext';
+const { Title } = Typography;
 
-
-const onFinish = values => {
-  console.log('Success:', values);
-};
 const onFinishFailed = errorInfo => {
   console.log('Failed:', errorInfo);
 };
@@ -17,6 +13,22 @@ const onFinishFailed = errorInfo => {
 function Login() {
   const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(true);
+
+  const { login } = useAuth();
+
+  const onFinish = (values) => {
+    const result = login(values.username, values.password);
+    if (result.ok) {
+      message.success('登录成功');
+      if (result.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/home', { replace: true });
+      }
+    } else {
+      message.error(result.message || '账号或密码错误');
+    }
+  };
 
   // 定义返回登录的回调函数，通过 context 传给子组件
   const goBackToLogin = useMemo(() => () => {
@@ -38,7 +50,7 @@ function Login() {
         <div className={showLoginForm ? "login-form-wrapper" : "hidden"} >
           <div >
           <Title level={1} style={{ marginBottom: 8 }}>易宿酒店预订平台</Title>
-          <Title level={2} style={{ marginBottom: 32, fontWeight: 'normal' }}>酒店管理系统 - 登录</Title>
+          <Title level={2} style={{ marginBottom: 10, fontWeight: 'normal'}}>酒店管理系统 - 登录</Title>
           </div>
 
           <Form

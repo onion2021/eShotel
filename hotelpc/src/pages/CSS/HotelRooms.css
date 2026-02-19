@@ -1,0 +1,39 @@
+.hotel-rooms-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #f6f8fb 0%, #eef1f6 100%);
+}
+
+.hotel-rooms-card {
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.hotel-rooms-header {
+  margin-bottom: 20px;
+}
+
+.hotel-rooms-actions {
+  margin-bottom: 20px;
+}
+
+.hotel-rooms-empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: #8c8c8c;
+}
+
+.hotel-rooms-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.hotel-rooms-item:last-child {
+  border-bottom: none;
+}
+
+.hotel-rooms-item .ant-list-item-meta-title {
+  font-weight: 500;
+}
