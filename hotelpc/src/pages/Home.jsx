@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useMemo } from 'react'
-import { Button, Card, List, Popconfirm, Space, Tag, Typography } from 'antd'
-import { PlusOutlined, EditOutlined, LogoutOutlined, AppstoreOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Button, Card, Collapse, List, Popconfirm, Space, Tag, Typography } from 'antd'
+import { PlusOutlined, EditOutlined, LogoutOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useHotel } from '../context/HotelContext'
 import { useAuth } from '../context/AuthContext'
 import './CSS/Home.css'
@@ -66,6 +66,11 @@ function Home() {
             <List.Item>
               <Card
                 className="home-card"
+                cover={item.images?.length > 0 ? (
+                  <div className="home-card-cover">
+                    <img src={item.images[0]} alt={item.name || ''} />
+                  </div>
+                ) : null}
                 title={
                   <span>
                     {item.name || '未命名酒店'}
@@ -82,14 +87,6 @@ function Home() {
                       onClick={() => navigate(`/hotel-info/${item.id}`)}
                     >
                       编辑
-                    </Button>
-                    <Button
-                      type="link"
-                      size="small"
-                      icon={<AppstoreOutlined />}
-                      onClick={() => navigate(`/hotel/${item.id}/rooms`)}
-                    >
-                      房型管理
                     </Button>
                     <Popconfirm
                       title="确定删除该酒店？"
@@ -109,7 +106,7 @@ function Home() {
                     {(REVIEW_TAG[item.reviewStatus] || REVIEW_TAG.pending).text}
                   </Tag>
                   {item.published && <Tag color="green">已发布</Tag>}
-                  <Text type="secondary" style={{ marginLeft: 'auto', fontSize: 13 }}>
+                  <Text type="secondary" style={{ marginLeft: 'auto', fontSize: 14 }}>
                     上次修改：{formatModifyTime(item.updatedAt)}
                   </Text>
                 </div>
@@ -129,12 +126,34 @@ function Home() {
                     <span className="label">星级</span>
                     <span className="value">{item.star ? `${item.star}星` : '-'}</span>
                   </div>
-                  <div className="home-info-item">
+                  <div className="home-info-item home-info-item-room">
                     <span className="label">房型</span>
                     <span className="value">
-                      {item.roomTypes?.length
-                        ? `共 ${item.roomTypes.length} 种：${item.roomTypes.map((r) => `${r.name}${r.price != null ? ` ¥${r.price}/晚` : ''}`).join('、')}`
-                        : '未录入'}
+                      {item.roomTypes?.length ? (
+                        <Collapse
+                          ghost
+                          size="small"
+                          className="home-room-collapse"
+                          items={[
+                            {
+                              key: 'room',
+                              label: `共 ${item.roomTypes.length} 种房型`,
+                              children: (
+                                <div className="home-room-detail-list">
+                                  {item.roomTypes.map((r, idx) => (
+                                    <span key={idx} className="home-room-detail-item">
+                                      <span className="room-name">{r.name}</span>
+                                      {r.price != null ? <span className="room-price">¥{r.price}/晚</span> : null}
+                                    </span>
+                                  ))}
+                                </div>
+                              ),
+                            },
+                          ]}
+                        />
+                      ) : (
+                        '未录入'
+                      )}
                     </span>
                   </div>
                   <div className="home-info-item">

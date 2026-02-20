@@ -16,6 +16,7 @@
 .home-title {
   margin: 0;
   font-weight: 600;
+  font-size: 22px !important;
   color: #1a1a2e;
   letter-spacing: -0.02em;
 }
@@ -35,7 +36,7 @@
 }
 
 .home-empty .ant-typography {
-  font-size: 15px;
+  font-size: 16px;
   color: #595959;
 }
 
@@ -70,7 +71,7 @@
 
 .home-card .ant-card-head-title {
   padding: 0;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   color: #1a1a2e;
 }
@@ -79,10 +80,23 @@
   padding: 20px;
 }
 
+.home-card-cover {
+  height: 160px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.home-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .home-card-name-en {
   font-weight: 400;
   color: #8c8c8c;
-  font-size: 14px;
+  font-size: 15px;
   margin-left: 8px;
 }
 
@@ -103,23 +117,29 @@
   border-radius: 8px;
   background: #fff2f0;
   border: 1px solid #ffccc7;
-  font-size: 13px;
+  font-size: 14px;
   color: #cf1322;
 }
 
 .home-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 20px;
   margin-bottom: 12px;
+}
+
+@media (max-width: 640px) {
+  .home-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .home-info-item {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.55;
 }
 
 .home-info-item .label {
@@ -137,11 +157,54 @@
   font-weight: 600;
 }
 
+.home-info-item-room {
+  min-width: 0;
+}
+
+.home-room-collapse {
+  width: 100%;
+  min-width: 0;
+}
+
+.home-room-collapse .ant-collapse-header {
+  padding: 0 0 4px 0 !important;
+  align-items: center;
+}
+
+.home-room-collapse .ant-collapse-content-box {
+  padding: 8px 0 0 0 !important;
+}
+
+.home-room-detail-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0;
+  font-size: 14px;
+  color: #595959;
+  line-height: 1.6;
+}
+
+.home-room-detail-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.home-room-detail-item .room-name {
+  margin-right: 2px;
+}
+
+.home-room-detail-item .room-price {
+  color: #1890ff;
+  font-weight: 500;
+}
+
 .home-extra-block {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px dashed rgba(0, 0, 0, 0.06);
-  font-size: 13px;
+  font-size: 14px;
   color: #595959;
   line-height: 1.6;
 }
@@ -154,5 +217,5 @@
 .home-edit-btn {
   padding: 0 8px;
   height: 32px;
-  font-size: 13px;
+  font-size: 14px;
 }

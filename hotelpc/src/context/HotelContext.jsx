@@ -17,6 +17,7 @@ function migrateHotel(h) {
     }));
   }
   if (h.createdBy === undefined) h.createdBy = '';
+  if (h.images === undefined) h.images = [];
   return h;
 }
 
