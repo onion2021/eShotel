@@ -51,6 +51,24 @@ const ROOM_TYPE_OPTIONS = [
   { value: '园景房' },
 ];
 
+const SERVICE_OPTIONS = [
+  { value: '免费停车' },
+  { value: '免费WiFi' },
+  { value: '免费早餐' },
+  { value: '24小时前台' },
+  { value: '行李寄存' },
+  { value: '接机服务' },
+  { value: '健身房' },
+  { value: '游泳池' },
+  { value: '会议室' },
+  { value: '商务中心' },
+  { value: '餐厅' },
+  { value: '酒吧' },
+  { value: 'SPA' },
+  { value: '洗衣服务' },
+  { value: '叫车服务' },
+];
+
 function HotelInfo() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -64,12 +82,13 @@ function HotelInfo() {
 
   useEffect(() => {
     if (currentHotel) {
-      const { customDimensions = [], promotions = [], roomTypes = [], createdBy, openingTime, images = [], ...rest } = currentHotel;
+      const { customDimensions = [], promotions = [], roomTypes = [], services = [], createdBy, openingTime, images = [], ...rest } = currentHotel;
       form.setFieldsValue({
         ...rest,
         openingTime: openingTime && dayjs(openingTime, OPENING_TIME_FORMAT).isValid() ? dayjs(openingTime, OPENING_TIME_FORMAT) : undefined,
         images: Array.isArray(images) ? images : [],
         promotions: (promotions.length ? promotions : [{ text: '' }]).map((p) => (typeof p === 'string' ? { text: p } : { text: p.text || '' })),
+        services: (services.length ? services : [{ text: '' }]).map((s) => (typeof s === 'string' ? { text: s } : { text: s.text || '' })),
         customDimensions: (customDimensions.length ? customDimensions : [{ name: '', value: '' }]).map((d) => ({
           name: d.name,
           value: d.value,
@@ -84,6 +103,7 @@ function HotelInfo() {
       form.setFieldsValue({
         images: [],
         promotions: [{ text: '' }],
+        services: [{ text: '' }],
         customDimensions: [{ name: '', value: '' }],
         roomTypes: [{ name: '', price: undefined }],
       });
@@ -91,13 +111,16 @@ function HotelInfo() {
   }, [currentHotel, form, id]);
 
   const buildHotel = (values) => {
-    const { customDimensions = [], promotions = [], roomTypes = [], openingTime, images = [], ...rest } = values;
+    const { customDimensions = [], promotions = [], services = [], roomTypes = [], openingTime, images = [], ...rest } = values;
     const cleanedCustom = customDimensions
       .filter((d) => d && (d.name?.trim() || d.value?.trim()))
       .map((d) => ({ name: d.name?.trim() || '', value: d.value?.trim() || '' }));
     const cleanedPromotions = (promotions || [])
       .filter((p) => p && p.text?.trim())
       .map((p) => p.text.trim());
+    const cleanedServices = (services || [])
+      .filter((s) => s && s.text?.trim())
+      .map((s) => s.text.trim());
     const cleanedRoomTypes = roomTypes
       .filter((r) => r && r.name?.trim())
       .map((r, idx) => ({
@@ -114,6 +137,7 @@ function HotelInfo() {
       images: imagesList,
       id: isEdit ? id : `hotel_${Date.now()}`,
       promotions: cleanedPromotions,
+      services: cleanedServices,
       customDimensions: cleanedCustom,
       roomTypes: cleanedRoomTypes,
       createdBy,
@@ -176,6 +200,7 @@ function HotelInfo() {
             star: 3,
             images: [],
             promotions: [{ text: '' }],
+            services: [{ text: '' }],
             customDimensions: [{ name: '', value: '' }],
             roomTypes: [{ name: '', price: undefined }],
           }}
@@ -256,6 +281,37 @@ function HotelInfo() {
             name="nearbyInfo"
           >
             <TextArea rows={3} placeholder="附近景点、地铁/公交、商场等" />
+          </Form.Item>
+          <Form.Item label="酒店服务">
+            <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>
+              如：免费停车、免费WiFi、免费早餐等
+            </Text>
+            <Form.List name="services">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item {...restField} name={[name, 'text']} style={{ marginBottom: 0, flex: 1, minWidth: 200 }}>
+                        <AutoComplete
+                          options={SERVICE_OPTIONS}
+                          placeholder="选择或输入服务项目"
+                          filterOption={(inputValue, option) =>
+                            option.value.toLowerCase().indexOf((inputValue || '').toLowerCase()) !== -1
+                          }
+                        />
+                      </Form.Item>
+                      <MinusCircleOutlined
+                        onClick={() => (fields.length > 1 ? remove(name) : null)}
+                        style={{ color: fields.length > 1 ? '#ff4d4f' : '#d9d9d9', fontSize: 18 }}
+                      />
+                    </Space>
+                  ))}
+                  <Button type="dashed" onClick={() => add({ text: '' })} icon={<PlusOutlined />}>
+                    添加服务
+                  </Button>
+                </>
+              )}
+            </Form.List>
           </Form.Item>
           <Form.Item label="酒店价格的打折/优惠场景">
             <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>

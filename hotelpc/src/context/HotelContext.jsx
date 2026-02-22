@@ -18,6 +18,9 @@ function migrateHotel(h) {
   }
   if (h.createdBy === undefined) h.createdBy = '';
   if (h.images === undefined) h.images = [];
+  if (h.services === undefined) h.services = [];
+  // everPublished 用于区分「未发布」与「已下线」
+  if (h.everPublished === undefined) h.everPublished = !!h.published;
   return h;
 }
 
@@ -53,6 +56,7 @@ function hotelReducer(state, action) {
       const published = idx >= 0 ? list[idx].published : false;
       const roomTypes = Array.isArray(hotel.roomTypes) ? hotel.roomTypes : (idx >= 0 ? list[idx].roomTypes : []) || [];
       const createdBy = hotel.createdBy != null ? hotel.createdBy : (idx >= 0 ? list[idx].createdBy : '') || '';
+      const everPublished = idx >= 0 ? !!list[idx].everPublished : false;
       let reviewStatus;
       let rejectReason;
       if (idx >= 0) {
@@ -63,7 +67,18 @@ function hotelReducer(state, action) {
         rejectReason = '';
       }
       if (idx >= 0) {
-        list[idx] = { ...base, reviewStatus, published, roomTypes, createdBy, rejectReason };
+        // 更新时保留原有的 createdAt / everPublished
+        const createdAt = list[idx].createdAt || Date.now();
+        list[idx] = {
+          ...base,
+          createdAt,
+          reviewStatus,
+          published,
+          roomTypes,
+          createdBy,
+          rejectReason,
+          everPublished,
+        };
       } else {
         list.push({
           ...base,
@@ -74,6 +89,7 @@ function hotelReducer(state, action) {
           rejectReason: '',
           roomTypes,
           createdBy,
+          everPublished: false,
         });
       }
       saveToStorage(list);
@@ -89,7 +105,16 @@ function hotelReducer(state, action) {
     }
     case 'SET_PUBLISHED': {
       const { id, published } = action.payload;
-      const list = state.list.map((h) => (h.id === id ? { ...h, published, updatedAt: Date.now() } : h));
+      const list = state.list.map((h) =>
+        h.id === id
+          ? {
+              ...h,
+              published,
+              everPublished: h.everPublished || published, // 一旦发布过就永远标记为 true
+              updatedAt: Date.now(),
+            }
+          : h
+      );
       saveToStorage(list);
       return { list };
     }

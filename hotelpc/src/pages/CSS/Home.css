@@ -113,12 +113,14 @@
 .home-reject-reason {
   width: 100%;
   margin-top: 6px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   border-radius: 8px;
   background: #fff2f0;
   border: 1px solid #ffccc7;
   font-size: 14px;
   color: #cf1322;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .home-info-grid {

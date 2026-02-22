@@ -105,7 +105,15 @@ function Home() {
                   <Tag color={(REVIEW_TAG[item.reviewStatus] || REVIEW_TAG.pending).color}>
                     {(REVIEW_TAG[item.reviewStatus] || REVIEW_TAG.pending).text}
                   </Tag>
-                  {item.published && <Tag color="green">已发布</Tag>}
+                  {!item.everPublished && (
+                    <Tag color="default">未发布</Tag>
+                  )}
+                  {item.everPublished && item.published && (
+                    <Tag color="green">已发布</Tag>
+                  )}
+                  {item.everPublished && !item.published && (
+                    <Tag color="default">已下线</Tag>
+                  )}
                   <Text type="secondary" style={{ marginLeft: 'auto', fontSize: 14 }}>
                     上次修改：{formatModifyTime(item.updatedAt)}
                   </Text>
@@ -162,10 +170,13 @@ function Home() {
                   </div>
                 </div>
 
-                {(item.nearbyInfo || (item.promotions && item.promotions.length > 0)) ? (
+                {(item.nearbyInfo || (item.promotions && item.promotions.length > 0) || (item.services && item.services.length > 0)) ? (
                   <div className="home-extra-block">
                     {item.nearbyInfo ? (
                       <div><span className="label">附近：</span>{item.nearbyInfo}</div>
+                    ) : null}
+                    {item.services && item.services.length > 0 ? (
+                      <div><span className="label">服务：</span>{item.services.join('、')}</div>
                     ) : null}
                     {item.promotions && item.promotions.length > 0 ? (
                       <div><span className="label">优惠：</span>{item.promotions.join('；')}</div>
